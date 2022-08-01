@@ -2,6 +2,7 @@ version: '3.3'
 
 services:
   poll:
+    restart: always
     build: .
     command: "pdm run python -m app"
     environment:

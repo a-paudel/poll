@@ -8,5 +8,5 @@ production = os.getenv("ENV", "PROD") == "PROD"
 app.run(
     debug=False if production else True,
     port=os.getenv("PORT", 5000),
-    host=os.getenv("HOST", "localhost"),
+    host="0.0.0.0" if production else "localhost",
 )
