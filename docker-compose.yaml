@@ -18,7 +18,7 @@ services:
       # traefik labels
       - traefik.enable=true
       # traefik http
-      - traefik.http.routers.poll.rule=Host:poll.apaudel.com
+      - traefik.http.routers.poll.rule=Host("poll.apaudel.com")
       - traefik.http.routers.poll.entrypoints=websecure,web
       # traefic cert resolver
       - traefik.http.routers.poll.tls.certresolver=myresolver
