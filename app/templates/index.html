@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div x-data="data">
+
+    <h1>
+        Create a poll
+        <p role="button" style="float: right;" x-on:click="submitHandler">Create Poll</p>
+    </h1>
+
+
+    <article>
+        <header>
+            <h3>
+                Question
+            </h3>
+        </header>
+        <input type="text" name="question">
+    </article>
+
+
+    <!-- answers -->
+    <div class="two-grid">
+        <template x-for="(answer, index) in answers">
+            <article class="col">
+                <h3 x-text="`Answer ${index+1}:`"></h3>
+                <input type="text" name="answers[]" x-model="answers[index]">
+                <footer>
+                    <p role="button" class="delete-button" x-on:click="()=>removeAnswer(index)">Remove Answer</p>
+                </footer>
+            </article>
+        </template>
+
+    </div>
+    <button x-on:click="addAnswer" class="secondary">Add Answer</button>
+
+
+</div>
+
+
+
+<script>
+    let data = {
+        question: 'What is your favorite color?',
+        answers: ["Red", "Blue"],
+        addAnswer() {
+            this.answers.push('');
+        },
+        removeAnswer(index) {
+            this.answers.splice(index, 1);
+        },
+        async submitHandler() {
+            // create a post request with question, and stringified answers to current url using fetch
+            let response = await fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    question: this.question,
+                    answers: this.answers
+                })
+            });
+            if (response.status == 200) {
+                // redirect to the new poll
+                // window.location.href = response.url;
+                let result = await response.json();
+                // redirect to current url/code
+                window.location.href = `${window.location.href}${result.code}`;
+            } else {
+                // show error
+                alert('Error creating poll');
+            }
+        },
+        init() {
+        }
+    };
+</script>
+
+<style>
+    .delete-button {
+        background-color: darkred;
+        border-color: rgb(75, 0, 0);
+    }
+
+    .delete-button:hover {
+        background-color: rgb(75, 0, 0);
+        border-color: darkred;
+    }
+
+    h3 {
+        margin: 0;
+    }
+
+    .two-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 1em;
+    }
+
+    article {
+        margin-block: 0.5em;
+    }
+</style>
+{% endblock main %}
