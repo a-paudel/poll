@@ -1,28 +1,21 @@
 version: '3.3'
 
 services:
-  poll:
+  vote:
     restart: always
     build: .
-    command: "pdm run python -m app"
-    environment:
-      - PORT=$PORT
-      - HOST=$HOST
+    env_file:
+      - .env
     expose:
       - $PORT
-    # ports:
-    #   - $PORT:$PORT
     volumes:
       - ./data:/app/data
     labels:
-      # traefik labels
-      - traefik.enable=true
       # traefik http
-      - traefik.http.routers.poll.rule=Host("poll.apaudel.com")
-      - traefik.http.routers.poll.entrypoints=websecure,web
-      # traefic cert resolver
-      - traefik.http.routers.poll.tls.certresolver=myresolver
+      - traefik.http.routers.vote.rule=Host("vote.apaudel.com")
+      - traefik.http.routers.vote.entrypoints=websecure,web
+      - traefik.http.routers.vote.tls.certresolver=certbot
 
 networks:
-  default:
-    name: backend
+  backend:
+    driver: bridge

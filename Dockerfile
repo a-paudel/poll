@@ -4,3 +4,4 @@ WORKDIR /app
 COPY pyproject.toml .
 RUN pdm install
 COPY . .
+CMD [ "pdm", "run", "python", "-m", "app" ]

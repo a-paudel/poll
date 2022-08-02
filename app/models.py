@@ -1,13 +1,19 @@
 import json
 from secrets import token_urlsafe
 import peewee as p
+from playhouse.db_url import connect
 import os
 
 # set db_name based on env
-db_url = "dev.db" if os.getenv("ENV", "PROD") == "DEV" else "data/db.sqlite3"
+# db_url = "dev.db" if os.getenv("ENV", "PROD") == "DEV" else "data/db.sqlite3"
+db_url = os.getenv("DATABASE_URL")
 
 # create db connection
-db = p.SqliteDatabase(db_url)
+# db = p.SqliteDatabase(db_url)
+print("=================================")
+print(db_url)
+print("=================================")
+db = connect(db_url)
 
 # base model
 class BaseModel(p.Model):
