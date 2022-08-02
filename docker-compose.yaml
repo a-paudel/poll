@@ -11,8 +11,6 @@ services:
     volumes:
       - ./data:/app/data
     labels:
-      # enable traefic
-      - traefik.enable=true
       # traefik http
       - traefik.http.routers.vote.rule=Host("vote.apaudel.com")
       - traefik.http.routers.vote.entrypoints=websecure,web
