@@ -15,7 +15,8 @@ services:
       - traefik.http.routers.vote.rule=Host("vote.apaudel.com")
       - traefik.http.routers.vote.entrypoints=websecure,web
       - traefik.http.routers.vote.tls.certresolver=certbot
-
+    networks:
+      - backend
 networks:
   backend:
-    driver: bridge
+    external: true
