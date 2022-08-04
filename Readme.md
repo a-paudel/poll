@@ -4,7 +4,7 @@ Simple poll app built using flask for the back-end and alpinejs to increase inte
 
 One of the very first apps I made to learn python.
 
-Now dockerized and running [here](http://poll.apaudel.com).
+Now dockerized and running [here](poll.paudel.me).
 
 ## How it works
 
