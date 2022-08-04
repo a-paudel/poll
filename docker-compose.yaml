@@ -13,7 +13,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.vote.rule=Host("poll.paudel.me")
-      - traefik.http.routers.vote.entrypoints=websecure,web
+      - traefik.http.routers.vote.entrypoints=websecure
       - traefik.http.routers.vote.tls.certresolver=certbot
     networks:
       - backend
