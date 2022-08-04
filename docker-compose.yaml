@@ -11,9 +11,10 @@ services:
     volumes:
       - ./data:/app/data
     labels:
-      - traefik.http.routers.vote.rule=Host("poll.apaudel.com")
-    #      - traefik.http.routers.vote.entrypoints=websecure,web
-    #      - traefik.http.routers.vote.tls.certresolver=certbot
+      - traefik.enable=true
+      - traefik.http.routers.vote.rule=Host("poll.paudel.me")
+      - traefik.http.routers.vote.entrypoints=websecure,web
+      - traefik.http.routers.vote.tls.certresolver=certbot
     networks:
       - backend
 networks:
