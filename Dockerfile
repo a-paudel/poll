@@ -1,7 +1,11 @@
 FROM python:3.10-alpine
-RUN pip install pdm
+RUN adduser app -D
+USER app
 WORKDIR /app
-COPY pyproject.toml .
-RUN pdm install
+
+RUN pip install pipenv
+COPY Pipfile .
+COPY Pipfile.lock .
+RUN pipenv install --deploy --system
 COPY . .
-CMD [ "pdm", "run", "python", "-m", "app" ]
+CMD [ "gunicorn", "app.app:app" ]
