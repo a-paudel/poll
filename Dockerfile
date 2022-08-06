@@ -1,6 +1,6 @@
 FROM python:3.10-alpine
-RUN adduser app -D
-USER app
+# RUN adduser app -D
+# USER app
 WORKDIR /app
 
 RUN pip install pipenv
