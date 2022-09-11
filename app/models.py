@@ -6,7 +6,7 @@ import os
 
 # set db_name based on env
 # db_url = "dev.db" if os.getenv("ENV", "PROD") == "DEV" else "data/db.sqlite3"
-db_url = os.getenv("DATABASE_URL")
+db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite3")
 
 # create db connection
 # db = p.SqliteDatabase(db_url)
