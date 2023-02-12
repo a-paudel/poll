@@ -1,21 +1,17 @@
 package models
 
 import (
-	"database/sql"
-	"log"
-
-	_ "github.com/mattn/go-sqlite3"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
-var DB *sql.DB
+var DB *gorm.DB
 
 func init() {
-	var db, err = sql.Open("sqlite3", "data/database/poll.db")
+	db, err := gorm.Open(sqlite.Open("data/database/poll.db"), &gorm.Config{})
 	if err != nil {
-		log.Fatalln("Error opening database: ", err)
+		panic("failed to connect database")
 	}
+	db.AutoMigrate(&Question{}, &Answer{})
 	DB = db
-
-	createQuestionTable()
-	createAnswerTable()
 }
